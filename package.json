@@ -1,0 +1,22 @@
+{
+  "name": "youtube-shorts-blocker",
+  "version": "1.0.0",
+  "description": "Browser extension that redirects YouTube Shorts to main YouTube page",
+  "scripts": {
+    "build": "node build.js",
+    "watch": "nodemon --watch src --exec npm run build",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "youtube",
+    "shorts",
+    "blocker",
+    "chrome-extension",
+    "browser-extension"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}
