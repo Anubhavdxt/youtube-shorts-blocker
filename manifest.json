@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "YouTube Shorts Blocker",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Redirects YouTube Shorts to main YouTube page",
   "host_permissions": ["https://www.youtube.com/*"],
   "icons": {
