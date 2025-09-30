@@ -100,15 +100,22 @@
     .theme-toggle {
       background: none;
       border: none;
-      font-size: 1.25rem;
       cursor: pointer;
       padding: 0.5rem;
       border-radius: 8px;
       transition: transform 0.2s ease;
+      color: var(--text-secondary);
     }
 
     .theme-toggle:hover {
       transform: scale(1.1);
+      color: var(--accent-blue);
+    }
+
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
     }
 
     /* Hero Section */
@@ -229,9 +236,11 @@
     }
 
     .feature-icon {
-      font-size: 2.5rem;
+      width: 48px;
+      height: 48px;
       margin-bottom: 1rem;
       display: block;
+      stroke: var(--accent-blue);
     }
 
     .feature-card h3 {
@@ -302,7 +311,9 @@
       <div class="nav-links">
         <a href="https://github.com/Anubhavdxt/youtube-shorts-blocker">GitHub</a>
         <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-          <span class="theme-icon">🌙</span>
+          <svg class="theme-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
         </button>
       </div>
     </nav>
@@ -311,7 +322,7 @@
   <main>
     <section class="hero">
       <div class="container">
-        <div class="hero-badge">✨ Browser Extension</div>
+        <div class="hero-badge">Browser Extension</div>
         <h1>Stay Focused.<br>Block Shorts.</h1>
         <p>A minimal browser extension that blocks YouTube Shorts and redirects you to the homepage, helping you stay productive.</p>
         <div class="cta-buttons">
@@ -330,17 +341,25 @@
         <h2>Simple & Effective</h2>
         <div class="features-grid">
           <div class="feature-card">
-            <span class="feature-icon">⚡</span>
+            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
             <h3>Instant Blocking</h3>
             <p>Automatically detects and blocks YouTube Shorts URLs before they load.</p>
           </div>
           <div class="feature-card">
-            <span class="feature-icon">🎨</span>
+            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a10 10 0 1 0 10 10H12V2Z"></path>
+              <path d="M12 2v10h10"></path>
+            </svg>
             <h3>Beautiful UI</h3>
             <p>Clean, modern overlay with smooth animations and gradient accents.</p>
           </div>
           <div class="feature-card">
-            <span class="feature-icon">🔧</span>
+            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
             <h3>Configurable</h3>
             <p>Customize countdown duration, redirect URL, and more in the config.</p>
           </div>
@@ -351,7 +370,7 @@
 
   <footer>
     <div class="container">
-      <p>Built with ❤️ by <a href="https://github.com/Anubhavdxt" target="_blank">Anubhav</a></p>
+      <p>Built by <a href="https://github.com/Anubhavdxt" target="_blank">Anubhav</a></p>
     </div>
   </footer>
 
@@ -364,13 +383,23 @@
 
       html.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
-      icon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+
+      // Update icon
+      if (newTheme === 'dark') {
+        icon.innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"></path>';
+      } else {
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+      }
     }
 
     // Load saved theme
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
-    document.querySelector('.theme-icon').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+    const icon = document.querySelector('.theme-icon');
+    if (savedTheme === 'dark') {
+      icon.innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"></path>';
+    }
   </script>
 </body>
 </html>
