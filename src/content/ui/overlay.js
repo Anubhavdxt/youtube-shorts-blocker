@@ -6,21 +6,25 @@ import { CONFIG } from '../../shared/config.js';
 import { Logger } from '../../shared/logger.js';
 
 // Import will be handled by build process - these are embedded as strings
-const HTML_TEMPLATE = `<div class="shorts-blocker-overlay">
-  <div class="shorts-blocker-card">
-    <div class="shorts-blocker-accent"></div>
+const HTML_TEMPLATE = `<div class="synaptimo-focus-overlay">
+  <div class="synaptimo-focus-card">
+    <div class="synaptimo-focus-accent"></div>
 
-    <div class="shorts-blocker-icon">⚠️</div>
+    <svg class="synaptimo-focus-icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+      <circle cx="12" cy="12" r="3"></circle>
+    </svg>
 
-    <h2 class="shorts-blocker-title">YouTube Shorts Blocked</h2>
+    <h2 class="synaptimo-focus-title">Synaptimo Focus</h2>
+    <p class="synaptimo-focus-subtitle">Distraction Blocked</p>
 
-    <p class="shorts-blocker-message">
-      You're being redirected away from YouTube Shorts to help you stay focused.
+    <p class="synaptimo-focus-message">
+      In an age of endless distraction, focus is a superpower. Redirecting you to intentional content.
     </p>
 
-    <div class="shorts-blocker-countdown-container">
-      <p class="shorts-blocker-countdown-text">
-        Redirecting in <span class="shorts-blocker-countdown-number" id="countdown">3</span> seconds...
+    <div class="synaptimo-focus-countdown-container">
+      <p class="synaptimo-focus-countdown-text">
+        Redirecting in <span class="synaptimo-focus-countdown-number" id="countdown">3</span> seconds...
       </p>
     </div>
   </div>
@@ -60,13 +64,13 @@ const CSS_STYLES = `@import url('https://fonts.googleapis.com/css2?family=Inter:
   }
 }
 
-.shorts-blocker-overlay {
+.synaptimo-focus-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
+  background: linear-gradient(135deg, rgba(45, 121, 113, 0.95) 0%, rgba(61, 71, 80, 0.95) 100%);
   backdrop-filter: blur(12px);
   display: flex;
   justify-content: center;
@@ -76,71 +80,81 @@ const CSS_STYLES = `@import url('https://fonts.googleapis.com/css2?family=Inter:
   animation: fadeIn 0.3s ease-out;
 }
 
-.shorts-blocker-card {
+.synaptimo-focus-card {
   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
   padding: 48px 56px;
   border-radius: 24px;
   text-align: center;
-  max-width: 480px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  max-width: 520px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(94, 169, 164, 0.2);
   animation: fadeIn 0.4s ease-out 0.1s both;
   position: relative;
   overflow: hidden;
 }
 
-.shorts-blocker-accent {
+.synaptimo-focus-accent {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6);
+  background: linear-gradient(90deg, #5ea9a4, #2d7971, #5ea9a4);
   background-size: 200% 200%;
   animation: gradient 3s ease infinite;
 }
 
-.shorts-blocker-icon {
-  font-size: 64px;
-  margin-bottom: 24px;
+.synaptimo-focus-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 24px;
+  display: block;
+  color: #2d7971;
   animation: breathe 2s ease-in-out infinite;
-  filter: drop-shadow(0 4px 12px rgba(239, 68, 68, 0.3));
+  filter: drop-shadow(0 4px 12px rgba(45, 121, 113, 0.3));
 }
 
-.shorts-blocker-title {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+.synaptimo-focus-title {
+  background: linear-gradient(135deg, #5ea9a4 0%, #2d7971 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
-  margin: 0 0 16px 0;
+  margin: 0 0 8px 0;
   letter-spacing: -0.02em;
 }
 
-.shorts-blocker-message {
-  color: #475569;
-  font-size: 16px;
-  line-height: 1.6;
-  margin: 0 0 32px 0;
-  font-weight: 500;
+.synaptimo-focus-subtitle {
+  color: #3d4750;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 24px 0;
 }
 
-.shorts-blocker-countdown-container {
-  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+.synaptimo-focus-message {
+  color: #475569;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 32px 0;
+  font-weight: 400;
+}
+
+.synaptimo-focus-countdown-container {
+  background: linear-gradient(135deg, #e8f5f4 0%, #d4ebe9 100%);
   padding: 20px 28px;
   border-radius: 16px;
   display: inline-block;
 }
 
-.shorts-blocker-countdown-text {
-  color: #64748b;
+.synaptimo-focus-countdown-text {
+  color: #2d7971;
   font-size: 14px;
   margin: 0;
-  font-weight: 500;
+  font-weight: 600;
 }
 
-.shorts-blocker-countdown-number {
-  color: #0c54fc;
+.synaptimo-focus-countdown-number {
+  color: #2d7971;
   font-weight: 700;
   font-size: 18px;
   display: inline-block;
