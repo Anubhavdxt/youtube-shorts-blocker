@@ -1,17 +1,22 @@
 /**
- * YouTube Shorts Blocker - Main Entry Point
+ * Synaptimo Focus - Main Entry Point
  *
  * This is the orchestrator that coordinates all modules:
  * - ShortsDetector: Detects Shorts URLs and monitors changes
  * - ContentBlocker: Injects CSS to hide Shorts content
  * - WarningOverlay: Shows the warning UI with countdown
+ * - Analytics: Tracks statistics locally
+ * - StorageManager: Handles persistent storage
  */
 
 import { CONFIG } from '../shared/config.js';
 import { Logger } from '../shared/logger.js';
+import { StorageManager } from '../shared/storage.js';
+import { Analytics } from '../shared/analytics.js';
 import { ShortsDetector } from './detector.js';
 import { ContentBlocker } from './blocker.js';
 import { WarningOverlay } from './ui/overlay.js';
+import { StatsPanel } from './ui/stats-panel.js';
 
 class YouTubeShortsBlocker {
   constructor() {
@@ -21,13 +26,23 @@ class YouTubeShortsBlocker {
   /**
    * Initialize the extension
    */
-  init() {
+  async init() {
     if (this.initialized) {
       Logger.warn('Already initialized');
       return;
     }
 
-    Logger.info('Initializing YouTube Shorts Blocker');
+    Logger.info('Initializing Synaptimo Focus');
+
+    // Initialize storage
+    await StorageManager.initialize();
+
+    // Check if extension is enabled
+    const enabled = await StorageManager.get('extension_enabled');
+    if (!enabled) {
+      Logger.info('Extension is disabled');
+      return;
+    }
 
     // Immediate check and block if on Shorts page
     this.checkAndBlock();
@@ -57,11 +72,14 @@ class YouTubeShortsBlocker {
   /**
    * Block Shorts content and show warning
    */
-  blockShorts() {
+  async blockShorts() {
     // Step 1: Inject blocking CSS immediately
     ContentBlocker.injectBlockingCSS();
 
-    // Step 2: Show warning overlay
+    // Step 2: Record analytics
+    await Analytics.recordBlock();
+
+    // Step 3: Show warning overlay
     WarningOverlay.show();
   }
 
@@ -84,11 +102,23 @@ class YouTubeShortsBlocker {
 // Auto-initialize when script loads
 const blocker = new YouTubeShortsBlocker();
 
-// Early blocking for document_start
-if (ShortsDetector.isShortsUrl() && document.readyState === 'loading') {
-  Logger.log('Early blocking at document_start');
-  ContentBlocker.injectBlockingCSS();
-}
+// Early blocking for document_start (only if enabled)
+(async () => {
+  await StorageManager.initialize();
+  const enabled = await StorageManager.get('extension_enabled');
 
-// Initialize the blocker
-blocker.init();
+  if (enabled && ShortsDetector.isShortsUrl() && document.readyState === 'loading') {
+    Logger.log('Early blocking at document_start');
+    ContentBlocker.injectBlockingCSS();
+  }
+
+  // Initialize the blocker
+  await blocker.init();
+})();
+
+// Listen for messages from background script (extension icon click)
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === 'toggleStatsPanel') {
+    StatsPanel.toggle();
+  }
+});

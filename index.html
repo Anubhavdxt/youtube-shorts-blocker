@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Synaptimo Focus - Block YouTube Shorts & Distractions</title>
-  <meta name="description" content="In an age of endless distraction, focus is a superpower. Synaptimo Focus blocks YouTube Shorts and helps you reclaim your attention.">
+  <title>Synaptimo Focus - Block YouTube Shorts & Reclaim Your Attention</title>
+  <meta name="description" content="An elegant shield for your mind. Block YouTube Shorts and reclaim your focus with privacy-first technology.">
   <link rel="icon" type="image/png" sizes="48x48" href="assets/icons/icon48.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/icon16.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +47,19 @@
       line-height: 1.6;
       transition: background 0.3s ease, color 0.3s ease;
       overflow-x: hidden;
+
+      /* Subtle Background Grid Pattern - darker for light mode */
+      background-image:
+        linear-gradient(rgba(94, 169, 164, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(94, 169, 164, 0.08) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+
+    [data-theme="dark"] body {
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
     }
 
     .container {
@@ -57,14 +70,18 @@
 
     /* Header */
     header {
-      padding: 2rem 0;
+      padding: 1.25rem 0;
       position: sticky;
       top: 0;
-      background: var(--bg-primary);
+      background: rgba(248, 249, 250, 0.8);
       backdrop-filter: blur(10px);
       z-index: 100;
       border-bottom: 1px solid var(--border-color);
       transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] header {
+      background: rgba(15, 15, 15, 0.8);
     }
 
     nav {
@@ -74,12 +91,19 @@
     }
 
     .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
       font-size: 1.25rem;
       font-weight: 700;
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
     }
 
     .nav-links {
@@ -123,8 +147,16 @@
 
     /* Hero Section */
     .hero {
-      padding: 8rem 0 6rem;
+      min-height: calc(100vh - 80px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      position: relative;
+    }
+
+    .hero .container {
+      padding: 4rem 1rem;
     }
 
     .hero-badge {
@@ -156,9 +188,10 @@
     .hero p {
       font-size: 1.25rem;
       color: var(--text-secondary);
-      max-width: 600px;
+      max-width: 650px;
       margin: 0 auto 3rem;
       animation: fadeInUp 0.6s ease-out 0.2s both;
+      line-height: 1.8;
     }
 
     .cta-buttons {
@@ -205,19 +238,89 @@
       transform: translateY(-2px);
     }
 
-    /* Features Section */
-    .features {
+    /* Problem Section */
+    .problem {
       padding: 6rem 0;
       background: var(--bg-secondary);
       border-top: 1px solid var(--border-color);
       border-bottom: 1px solid var(--border-color);
     }
 
+    .problem h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .problem-subtitle {
+      text-align: center;
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto 4rem;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .problem-card {
+      padding: 2rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent-teal);
+    }
+
+    .problem-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .problem-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .problem-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 6rem 0;
+    }
+
     .features h2 {
       text-align: center;
       font-size: 2.5rem;
       font-weight: 700;
-      margin-bottom: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .features-subtitle {
+      text-align: center;
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto 4rem;
     }
 
     .features-grid {
@@ -228,7 +331,7 @@
 
     .feature-card {
       padding: 2rem;
-      background: var(--bg-primary);
+      background: var(--bg-secondary);
       border: 1px solid var(--border-color);
       border-radius: 16px;
       transition: all 0.3s ease;
@@ -237,6 +340,7 @@
     .feature-card:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-lg);
+      border-color: var(--accent-teal);
     }
 
     .feature-icon {
@@ -244,7 +348,6 @@
       height: 48px;
       margin-bottom: 1rem;
       display: block;
-      stroke: var(--accent-teal);
     }
 
     .feature-card h3 {
@@ -256,13 +359,138 @@
     .feature-card p {
       color: var(--text-secondary);
       font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* Philosophy Section */
+    .philosophy {
+      padding: 6rem 0;
+      text-align: center;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .philosophy h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .philosophy p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      line-height: 1.8;
+    }
+
+    .philosophy a {
+      color: var(--accent-teal);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .philosophy a:hover {
+      color: var(--accent-dark-teal);
+      text-decoration: underline;
+    }
+
+    /* FAQ Section */
+    .faq {
+      padding: 6rem 0;
+    }
+
+    .faq h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 4rem;
+    }
+
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-list details {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .faq-list details[open] {
+      border-color: var(--accent-teal);
+    }
+
+    .faq-list summary {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: color 0.2s ease;
+    }
+
+    .faq-list summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-list summary::after {
+      content: '+';
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      transition: transform 0.3s ease, color 0.2s ease;
+    }
+
+    .faq-list details[open] summary {
+      color: var(--accent-teal);
+      margin-bottom: 1rem;
+    }
+
+    .faq-list details[open] summary::after {
+      content: '−';
+      color: var(--accent-teal);
+      transform: rotate(180deg);
+    }
+
+    .faq-list summary:hover {
+      color: var(--accent-teal);
+    }
+
+    .faq-list p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .faq-list p a {
+      color: var(--accent-teal);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .faq-list p a:hover {
+      color: var(--accent-dark-teal);
+      text-decoration: underline;
     }
 
     /* Footer */
     footer {
-      padding: 3rem 0;
+      padding: 2rem 0;
       text-align: center;
       border-top: 1px solid var(--border-color);
+      background: var(--bg-primary);
+      background-image: none;
     }
 
     footer p {
@@ -273,10 +501,12 @@
     footer a {
       color: var(--accent-teal);
       text-decoration: none;
+      transition: color 0.2s ease;
     }
 
     footer a:hover {
       color: var(--accent-dark-teal);
+      text-decoration: underline;
     }
 
     /* Animations */
@@ -291,32 +521,39 @@
       }
     }
 
-    @keyframes breathe {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.05);
-      }
-    }
-
     /* Responsive */
     @media (max-width: 768px) {
       .hero {
         padding: 4rem 0 3rem;
       }
 
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.125rem;
+      }
+
       .nav-links {
         gap: 1rem;
       }
 
-      .features {
+      .nav-links a:not(.theme-toggle) {
+        display: none;
+      }
+
+      .features, .problem, .philosophy, .faq {
         padding: 4rem 0;
       }
 
-      .features h2 {
+      .features h2, .problem h2, .philosophy h2, .faq h2 {
         font-size: 2rem;
         margin-bottom: 2rem;
+      }
+
+      .faq-list summary {
+        font-size: 1rem;
       }
     }
   </style>
@@ -324,14 +561,14 @@
 <body>
   <header>
     <nav class="container">
-      <div class="logo">
-        <img src="assets/icons/icon48.png" alt="Synaptimo Focus" style="width: 32px; height: 32px; vertical-align: middle; margin-right: 10px;">
-        Synaptimo Focus
-      </div>
+      <a href="#" class="logo">
+        <img src="assets/icons/icon128.png" alt="Synaptimo Focus">
+        <span>Synaptimo Focus</span>
+      </a>
       <div class="nav-links">
+        <a href="#features">Features</a>
         <a href="https://synaptimo.com">Synaptimo</a>
         <a href="https://github.com/Anubhavdxt/youtube-shorts-blocker">GitHub</a>
-        <a href="#privacy">Privacy</a>
         <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
           <svg class="theme-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -345,11 +582,11 @@
     <section class="hero">
       <div class="container">
         <div class="hero-badge">Part of the Synaptimo Suite</div>
-        <h1>Reclaim Your<br>Attention.</h1>
-        <p>In an age of endless distraction, focus is a superpower. Synaptimo Focus blocks YouTube Shorts and helps you engage with content on your own terms.</p>
+        <h1>Reclaim Your Focus</h1>
+        <p>Block YouTube Shorts. Protect your attention.<br>Turn YouTube back into the powerful tool it was meant to be.</p>
         <div class="cta-buttons">
-          <a href="https://chromewebstore.google.com/detail/synaptimo-focus/nkklfnlemjknkgplbmoonibhicgffkdb" class="btn btn-primary">
-            Install Extension
+          <a href="https://chromewebstore.google.com/detail/synaptimo-focus/nkklfnlemjknkgplbmoonibhicgffkdb" class="btn btn-primary" id="install-btn">
+            Add to Browser – It's Free
           </a>
           <a href="https://github.com/Anubhavdxt/youtube-shorts-blocker" class="btn btn-secondary">
             View Source
@@ -358,38 +595,145 @@
       </div>
     </section>
 
-    <section class="features">
+    <section class="problem">
       <div class="container">
-        <h2>Built for Mindful Productivity</h2>
+        <h2>The infinite feed is designed to steal your time.</h2>
+        <p class="problem-subtitle">Short-form content isn't just a distraction—it's engineered to keep you hooked, derailing your goals and fragmenting your attention.</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <svg class="problem-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#iconGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <defs>
+                <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#a78bfa"/>
+                  <stop offset="100%" stop-color="#7c3aed"/>
+                </linearGradient>
+              </defs>
+              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/>
+              <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/>
+            </svg>
+            <h3>Fractured Attention</h3>
+            <p>Constant context-switching from long-form content to short-form clips destroys deep work and mental clarity.</p>
+          </div>
+          <div class="problem-card">
+            <svg class="problem-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <defs>
+                <linearGradient id="iconGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fb923c"/>
+                  <stop offset="100%" stop-color="#ea580c"/>
+                </linearGradient>
+              </defs>
+              <circle cx="12" cy="12" r="10" stroke="url(#iconGradient2)"/>
+              <polyline points="12 6 12 12 16 14" stroke="url(#iconGradient2)"/>
+            </svg>
+            <h3>Lost Hours</h3>
+            <p>A "quick look" at Shorts turns into a 45-minute scroll session, derailing your most important goals for the day.</p>
+          </div>
+          <div class="problem-card">
+            <svg class="problem-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#iconGradient3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <defs>
+                <linearGradient id="iconGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#f87171"/>
+                  <stop offset="100%" stop-color="#dc2626"/>
+                </linearGradient>
+              </defs>
+              <polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/>
+              <polyline points="16 17 22 17 22 11"/>
+            </svg>
+            <h3>Diminishing Returns</h3>
+            <p>The dopamine loop of short-form content leaves you feeling drained, not inspired—engineered to exploit, not empower.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="container">
+        <h2>An elegant shield for your mind.</h2>
+        <p class="features-subtitle">Powerful protection that works seamlessly in the background, keeping you focused on what matters.</p>
         <div class="features-grid">
           <div class="feature-card">
-            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-              <circle cx="12" cy="12" r="3"></circle>
+            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#iconGradient4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <defs>
+                <linearGradient id="iconGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#f87171"/>
+                  <stop offset="100%" stop-color="#dc2626"/>
+                </linearGradient>
+              </defs>
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
             </svg>
-            <h3>Reclaim Attention</h3>
-            <p>Seamlessly removes YouTube Shorts before they load, preventing the endless scroll trap.</p>
+            <h3>Instant Blocking</h3>
+            <p>Automatically removes YouTube Shorts before they load, preventing the endless scroll trap and protecting your time.</p>
           </div>
           <div class="feature-card">
-            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2v20M2 12h20"></path>
+            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#iconGradient5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <defs>
+                <linearGradient id="iconGradient5" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#5ea9a4"/>
+                  <stop offset="100%" stop-color="#2d7971"/>
+                </linearGradient>
+              </defs>
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
-            <h3>Minimalist Design</h3>
-            <p>Lightweight and built for performance. No bloat, just focus. Privacy-first, always.</p>
+            <h3>Privacy First</h3>
+            <p>All tracking happens locally on your device. We never collect, transmit, or store your browsing data. Ever.</p>
           </div>
           <div class="feature-card">
-            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#iconGradient6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <defs>
+                <linearGradient id="iconGradient6" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#60a5fa"/>
+                  <stop offset="100%" stop-color="#2563eb"/>
+                </linearGradient>
+              </defs>
               <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
             </svg>
-            <h3>Open Source</h3>
-            <p>Built transparently with the community. Customize and extend to fit your needs.</p>
+            <h3>Track Your Progress</h3>
+            <p>See exactly how many distractions you've blocked and how much time you've reclaimed with beautiful, private analytics.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="philosophy">
+      <div class="container">
+        <h2>A tool for intentional living.</h2>
+        <p>Synaptimo Focus is the first product in the Synaptimo suite. Our mission is to build calm, mindful technology that puts you back in control. We believe software should be a tool, not a trap.</p>
+        <a href="https://synaptimo.com" target="_blank">Learn more about our mission →</a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="container">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <details>
+            <summary>Is Synaptimo Focus free?</summary>
+            <p>Yes, the core features of blocking YouTube Shorts are completely free forever. We're building a Pro version with advanced analytics and features that will be available for a small fee to support development.</p>
+          </details>
+          <details>
+            <summary>Is my data private?</summary>
+            <p>Absolutely. Privacy is core to our philosophy. All statistics are tracked locally on your device. We never collect, transmit, or store your browsing history. <a href="https://github.com/Anubhavdxt/youtube-shorts-blocker/blob/main/PRIVACY_POLICY.md" target="_blank">Read our full Privacy Policy</a></p>
+          </details>
+          <details>
+            <summary>What browsers are supported?</summary>
+            <p>Currently, Synaptimo Focus works on all Chromium-based browsers including Chrome, Arc, Brave, Edge, and Opera. Firefox support is on our roadmap.</p>
+          </details>
+          <details>
+            <summary>Can I disable the extension temporarily?</summary>
+            <p>Yes! Click the extension icon and use the toggle switch to pause blocking whenever you need to. Your stats will continue tracking when you re-enable it.</p>
+          </details>
+          <details>
+            <summary>Will this affect regular YouTube videos?</summary>
+            <p>No, Synaptimo Focus only blocks YouTube Shorts. All regular videos, playlists, and long-form content work normally. You maintain full access to intentional, educational content.</p>
+          </details>
         </div>
       </div>
     </section>
   </main>
 
-  <footer id="privacy">
+  <footer>
     <div class="container">
       <p>Built by <a href="https://github.com/Anubhavdxt" target="_blank">Anubhav</a> · <a href="https://synaptimo.com" target="_blank">Synaptimo</a> · <a href="https://github.com/Anubhavdxt/youtube-shorts-blocker/blob/main/PRIVACY_POLICY.md" target="_blank">Privacy Policy</a></p>
     </div>
@@ -421,6 +765,70 @@
     if (savedTheme === 'dark') {
       icon.innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"></path>';
     }
+
+    // Detect browser and update install button text
+    function detectBrowser() {
+      const userAgent = navigator.userAgent;
+      const userAgentLower = userAgent.toLowerCase();
+
+      // List of Chromium-based and other browsers to detect
+      const browsers = [
+        { pattern: /edg(?:e|ios|a)?\/([\d.]+)/i, name: 'Edge' },
+        { pattern: /arc\/([\d.]+)/i, name: 'Arc' },
+        { pattern: /vivaldi\/([\d.]+)/i, name: 'Vivaldi' },
+        { pattern: /brave\/([\d.]+)/i, name: 'Brave' },
+        { pattern: /opr\/([\d.]+)/i, name: 'Opera' },
+        { pattern: /opera\/([\d.]+)/i, name: 'Opera' },
+        { pattern: /samsungbrowser\/([\d.]+)/i, name: 'Samsung Internet' },
+        { pattern: /crios\/([\d.]+)/i, name: 'Chrome' },
+        { pattern: /chrome\/([\d.]+)/i, name: 'Chrome' },
+        { pattern: /firefox\/([\d.]+)/i, name: 'Firefox' },
+        { pattern: /safari\/([\d.]+)/i, name: 'Safari' }
+      ];
+
+      // Try to detect browser by pattern matching
+      for (const browser of browsers) {
+        const match = userAgent.match(browser.pattern);
+        if (match) {
+          // For Safari, make sure it's not Chrome/Chromium
+          if (browser.name === 'Safari' && userAgentLower.includes('chrome')) {
+            continue;
+          }
+          return browser.name;
+        }
+      }
+
+      // Fallback: try to extract browser name from user agent
+      const brandMatch = userAgent.match(/\b([A-Z][a-z]+(?:[A-Z][a-z]+)*)\//);
+      if (brandMatch && brandMatch[1]) {
+        return brandMatch[1];
+      }
+
+      return 'Browser';
+    }
+
+    // Update install button text with detected browser
+    const installBtn = document.getElementById('install-btn');
+    if (installBtn) {
+      const browserName = detectBrowser();
+      installBtn.textContent = `Add to ${browserName} – It's Free`;
+    }
+
+    // FAQ accordion - close others when one is opened
+    document.addEventListener('DOMContentLoaded', () => {
+      const details = document.querySelectorAll('.faq-list details');
+
+      details.forEach((targetDetail) => {
+        targetDetail.addEventListener('click', () => {
+          // Close all other details
+          details.forEach((detail) => {
+            if (detail !== targetDetail) {
+              detail.removeAttribute('open');
+            }
+          });
+        });
+      });
+    });
   </script>
 </body>
 </html>

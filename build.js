@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Simple build script for YouTube Shorts Blocker
- * Bundles ES6 modules into a single file for browser compatibility
+ * Build script for Synaptimo Focus
+ * Bundles ES6 modules into browser-compatible files
  */
 
 const fs = require('fs');
@@ -18,15 +18,7 @@ if (fs.existsSync(DIST_DIR)) {
 }
 fs.mkdirSync(DIST_DIR, { recursive: true });
 
-console.log('Building YouTube Shorts Blocker...');
-
-// Read all module files
-const config = fs.readFileSync(path.join(SRC_DIR, 'shared/config.js'), 'utf8');
-const logger = fs.readFileSync(path.join(SRC_DIR, 'shared/logger.js'), 'utf8');
-const detector = fs.readFileSync(path.join(SRC_DIR, 'content/detector.js'), 'utf8');
-const blocker = fs.readFileSync(path.join(SRC_DIR, 'content/blocker.js'), 'utf8');
-const overlay = fs.readFileSync(path.join(SRC_DIR, 'content/ui/overlay.js'), 'utf8');
-const index = fs.readFileSync(path.join(SRC_DIR, 'content/index.js'), 'utf8');
+console.log('Building Synaptimo Focus v2.1.0...\n');
 
 // Simple module bundler - wrap in IIFE and remove import/export statements
 function stripModuleSyntax(code) {
@@ -36,8 +28,19 @@ function stripModuleSyntax(code) {
     .replace(/import\s+\w+\s+from\s+['"][^'"]+['"];?\s*/g, '');
 }
 
-// Bundle all code
-const bundledCode = `
+// Read all module files for content script
+const config = fs.readFileSync(path.join(SRC_DIR, 'shared/config.js'), 'utf8');
+const logger = fs.readFileSync(path.join(SRC_DIR, 'shared/logger.js'), 'utf8');
+const storage = fs.readFileSync(path.join(SRC_DIR, 'shared/storage.js'), 'utf8');
+const analytics = fs.readFileSync(path.join(SRC_DIR, 'shared/analytics.js'), 'utf8');
+const detector = fs.readFileSync(path.join(SRC_DIR, 'content/detector.js'), 'utf8');
+const blocker = fs.readFileSync(path.join(SRC_DIR, 'content/blocker.js'), 'utf8');
+const overlay = fs.readFileSync(path.join(SRC_DIR, 'content/ui/overlay.js'), 'utf8');
+const statsPanel = fs.readFileSync(path.join(SRC_DIR, 'content/ui/stats-panel.js'), 'utf8');
+const contentIndex = fs.readFileSync(path.join(SRC_DIR, 'content/index.js'), 'utf8');
+
+// Bundle content script
+const contentBundle = `
 (function() {
   'use strict';
 
@@ -46,6 +49,12 @@ const bundledCode = `
 
   // ==================== Logger Module ====================
   ${stripModuleSyntax(logger)}
+
+  // ==================== Storage Module ====================
+  ${stripModuleSyntax(storage)}
+
+  // ==================== Analytics Module ====================
+  ${stripModuleSyntax(analytics)}
 
   // ==================== Detector Module ====================
   ${stripModuleSyntax(detector)}
@@ -56,14 +65,23 @@ const bundledCode = `
   // ==================== Overlay Module ====================
   ${stripModuleSyntax(overlay)}
 
+  // ==================== Stats Panel Module ====================
+  ${stripModuleSyntax(statsPanel)}
+
   // ==================== Main Entry Point ====================
-  ${stripModuleSyntax(index)}
+  ${stripModuleSyntax(contentIndex)}
 })();
 `;
 
-// Write bundled file
-fs.writeFileSync(path.join(DIST_DIR, 'content.js'), bundledCode);
+fs.writeFileSync(path.join(DIST_DIR, 'content.js'), contentBundle);
 console.log('✓ Built content.js');
+
+// Copy background script
+fs.copyFileSync(
+  path.join(SRC_DIR, 'background.js'),
+  path.join(DIST_DIR, 'background.js')
+);
+console.log('✓ Copied background.js');
 
 // Copy manifest
 fs.copyFileSync(
@@ -83,17 +101,15 @@ fs.mkdirSync(iconDir, { recursive: true });
   if (fs.existsSync(src)) {
     fs.copyFileSync(src, dest);
     console.log(`✓ Copied ${icon}`);
-  } else {
-    // Fallback to root if not in assets yet
-    const rootSrc = path.join(__dirname, icon);
-    if (fs.existsSync(rootSrc)) {
-      fs.copyFileSync(rootSrc, dest);
-      console.log(`✓ Copied ${icon} from root`);
-    }
   }
 });
 
 console.log('\n✨ Build complete! Extension ready in ./dist/');
+console.log('\n📦 New in v2.1.0:');
+console.log('  • Local analytics tracking');
+console.log('  • Extension popup with stats');
+console.log('  • Enable/disable toggle');
+console.log('  • Streak tracking');
 console.log('\nTo load in Chrome:');
 console.log('1. Go to chrome://extensions/');
 console.log('2. Enable "Developer mode"');

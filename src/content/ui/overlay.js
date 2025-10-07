@@ -10,9 +10,18 @@ const HTML_TEMPLATE = `<div class="synaptimo-focus-overlay">
   <div class="synaptimo-focus-card">
     <div class="synaptimo-focus-accent"></div>
 
-    <svg class="synaptimo-focus-icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-      <circle cx="12" cy="12" r="3"></circle>
+    <svg width="0" height="0" style="position: absolute;">
+      <defs>
+        <linearGradient id="overlayIconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f87171"/>
+          <stop offset="100%" stop-color="#dc2626"/>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <svg class="synaptimo-focus-icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="url(#overlayIconGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
     </svg>
 
     <h2 class="synaptimo-focus-title">Synaptimo Focus</h2>
@@ -108,9 +117,8 @@ const CSS_STYLES = `@import url('https://fonts.googleapis.com/css2?family=Inter:
   height: 64px;
   margin: 0 auto 24px;
   display: block;
-  color: #2d7971;
   animation: breathe 2s ease-in-out infinite;
-  filter: drop-shadow(0 4px 12px rgba(45, 121, 113, 0.3));
+  filter: drop-shadow(0 4px 12px rgba(248, 113, 113, 0.3));
 }
 
 .synaptimo-focus-title {
